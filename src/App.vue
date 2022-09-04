@@ -1,38 +1,24 @@
 <script setup>
+import {useListStore} from './stores/List';
 
+const storeCounter = useListStore();
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+  <div class=" dark:bg-slate-800 justify-center items-center flex flex=wrap flex-col ">
+  <h1 >Mehran`s ToDoList</h1>
+  <input type="text">
+  <input class="bg-slate-900" type="number">
+
+  <button>add</button>
+
+  <p class="ListOfToDo w-80  bg-lime-300 m-8 p-8 rounded-md flex flex-col "  v-for="(List,index) in storeCounter.List" :key="index">
+    {{ List.name }}
+    <span class=" bg-red-500 w-10 justify-center rounded-full  ">x</span>
+  </p>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
