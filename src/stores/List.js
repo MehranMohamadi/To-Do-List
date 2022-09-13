@@ -3,8 +3,7 @@ import {defineStore} from 'pinia'
 export const useListStore = defineStore('counter', {
     state: () => {
         return {
-            List: [{name: 'ali', deadline: '2', id: 0},
-                {name: 'omid', deadline: '5', id: 1},]
+            List: []
         }
     },
     // could also be defined as

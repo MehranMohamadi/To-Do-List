@@ -6,17 +6,14 @@ import {ref} from "vue";
 const storeCounter = useListStore();
 const newTodo = ref('');
 const deadline = ref('');
-const taskDone = ref(true)
-const isDone = ref(true)
-const newStyle=ref('')
-async function addItem() {
-  await storeCounter.List.push({name: newTodo.value, deadline: deadline.value})
-  newTodo.value = ''
-  console.log(newTodo.value)
-  deadline.value = 0
+const id = ref(0)
 
-  storeCounter.taskDone(taskDone)
-  console.log(taskDone)
+const newStyle = ref('')
+
+function addItem() {
+console.log(newTodo.value)
+  newTodo.value!==''?storeCounter.List.push({name: newTodo.value, id: id.value++}):alert('null input');
+  document.getElementById("add").value=" dfsfds"
 }
 
 function deleteItem(index) {
@@ -24,31 +21,32 @@ function deleteItem(index) {
 
 }
 
-function done(index) {
-  newStyle.value='bg-green-300'
+function done() {
+  newStyle.value = 'bg-green-300'
 }
 
 
 </script>
 
 <template>
-  <div class=" w-screen h-screen dark:bg-slate-800 justify-center items-center flex flex=wrap flex-col ">
-    <h1 class="text-7xl">Mehran`s ToDoList</h1>
-    <input v-model.lazy="newTodo"
-           class="bg-blue-300 border-none  w-1/3 m-4 p-4 selection:bg-fuchsia-300 selection:text-fuchsia-900 "
-           type="text"
-           placeholder="">
-    {{ storeCounter.List }}
-    <input v-model="deadline" class="bg-blue-900" type="text" placeholder="example:3 days">
+  <div class= " w-screen h-screen dark:bg-slate-800 justify-center items-center flex flex=wrap flex-col ">
+    <h1 class="top-0 text-7xl">Mehran`s ToDoList</h1>
+    <div class="flex flex-wrap flex-row  bg-slate-900 w-1/3 rounded-t-lg ">
+      <input v-model.lazy="newTodo"
+             class="rounded-md bg-slate-700 border-none  w-2/3 m-2 p-2 selection:bg-fuchsia-300 selection:text-fuchsia-900 "
+             type="text"
+             placeholder="">
 
-    <button class="bg-blue-500 rounded-full font-bold text-2xl
-     text-white m-3 p-4 " @click.prevent="addItem">
-      +
-    </button>
-    <div class="bg-slate-900 xl:w-1/2  w-9/12 p-2 justify-center items-center
-     flex flex-wrap flex-col">
+      <button class="bg-blue-400 rounded-full font-bold text-2xl
+     text-white m-2 p-2 w-1/6 hover:bg-blue-600 float-right   " id="add" @click.prevent="addItem">
+        +
+      </button>
+
+    </div>
+    <div class=" bg-slate-900 overflow-auto xl:w-1/2 rounded-md  w-9/12 p-2 justify-center items-center
+     flex  flex-col">
       <p @click="done(index)" :class="newStyle"
-         class="hover:bg-green-300 selection:bg-fuchsia-300 selection:text-fuchsia-900  w-80 italic cursor-pointer hover:not-italic font-bold  bg-blue-300 m-3 p-4 rounded-md w-9/12 "
+         class="hover:bg-green-300 break-words selection:bg-fuchsia-300 selection:text-fuchsia-900  w-80 italic cursor-pointer hover:not-italic font-bold  bg-blue-300 m-3 p-4 rounded-md w-5/6 "
          v-for="(List,index) in storeCounter.List" :key="index">
         {{ List.name }}
         <span
